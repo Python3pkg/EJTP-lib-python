@@ -29,7 +29,7 @@ def main():
             try:
                 test = loader.loadTestsFromName('%s.%s' % (__package__, name))
             except AttributeError as ex:
-                print("Error loading '%s': %s" % (name, ex))
+                print(("Error loading '%s': %s" % (name, ex)))
                 quit(1)
             tests.addTests(test)
     else:

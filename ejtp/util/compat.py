@@ -28,6 +28,6 @@ is_py3k = sys.version_info[0] == 3
 
 # Python 3+ moved cStringIO to io module
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
     from io import StringIO

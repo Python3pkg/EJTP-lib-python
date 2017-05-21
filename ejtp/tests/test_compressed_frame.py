@@ -60,12 +60,12 @@ class TestCompressedFrame(unittest.TestCase):
         self.assertEqual(frame.createFrame('c\x00'), frame.compressed.CompressedFrame('c\x00'))
     
     def test_construct(self):
-        for comp_t, comp in frame.compressed._compression_types.items():
+        for comp_t, comp in list(frame.compressed._compression_types.items()):
             compressed = comp('foobar').compress()
             self.assertEqual(frame.compressed.construct('foobar', comp_t),
                 frame.compressed.CompressedFrame(RawData('c') + comp_t + '\x00' + compressed))
 
-        for comp_alias, comp_t in frame.compressed._compression_alias.items():
+        for comp_alias, comp_t in list(frame.compressed._compression_alias.items()):
             self.assertEqual(frame.compressed.construct('foobar', comp_alias),
                 frame.compressed.construct('foobar', comp_t))
         

@@ -22,7 +22,7 @@ from ejtp.jacks import core as jack
 
 import threading
 try:
-    import Queue
+    import queue
 except ImportError: # in python3.x it's renamed to lowercase queue
     import queue as Queue
 
@@ -88,7 +88,7 @@ class Connection(object):
         self.jack = jack
         self._buffer = RawData()
         self._running = False
-        self._outqueue = Queue.Queue()
+        self._outqueue = queue.Queue()
         self._thread = threading.Thread(target=self.run)
 
     # SUBCLASS INTERFACE ------------------------------------------------------
@@ -133,7 +133,7 @@ class Connection(object):
         '''
         try:
             return self._outqueue.get(timeout=timeout)
-        except Queue.Empty:
+        except queue.Empty:
             return None
 
     def wrap(self, frame):

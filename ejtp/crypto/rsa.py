@@ -18,7 +18,7 @@ along with the Python EJTP library.  If not, see
 
 
 try:
-    import thread
+    import _thread
 except ImportError: # in python3.x it's renamed to _thread
     import _thread as thread
 from persei import RawDataDecorator
@@ -36,7 +36,7 @@ class RSA(encryptor.Encryptor):
     def __init__(self, keystr, bits=None):
         self.keystr = keystr
         self._key = None
-        self.genlock = thread.allocate()
+        self.genlock = _thread.allocate()
         if keystr == None:
             self.generate(bits=int(bits) or 1024)
         else:
@@ -128,7 +128,7 @@ class RSA(encryptor.Encryptor):
 
     def generate(self, bits=1024):
         self.genlock.acquire()
-        thread.start_new_thread(self._generate, (bits,))
+        _thread.start_new_thread(self._generate, (bits,))
 
     def _generate(self, bits):
         try:

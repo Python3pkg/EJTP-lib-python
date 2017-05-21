@@ -43,7 +43,7 @@ class Guard(object):
 		if not exc_traceback:
 			return True
 		if self.print_catch:
-			print("Traceback %s caught by %s" % (exc_traceback, self))
+			print(("Traceback %s caught by %s" % (exc_traceback, self)))
 		if self.print_traceback:
 			traceback.print_exception(exc_type, exc_value, exc_traceback)
 		return True

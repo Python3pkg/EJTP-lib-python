@@ -16,7 +16,7 @@ along with the Python EJTP library.  If not, see
 <http://www.gnu.org/licenses/>.
 '''
 
-from __future__ import print_function
+
 try:
     input = raw_input
 except:
@@ -95,7 +95,7 @@ def confirm(func, label = None, show = None):
             show(value)
         elif label:
             print(label % value)
-        correct = input('Is this correct? [y/n] ')
+        correct = eval(input('Is this correct? [y/n] '))
         confirmed = 'y' in correct.lower()
     return value
 
@@ -106,13 +106,13 @@ def choose(options, singular, plural):
         for name in sorted(options.keys()):
             desc = options[name]
             print("    {0} : {1}".format(name, desc))
-        choice = input("\nWhich %s do you want? " % singular)
+        choice = eval(input("\nWhich %s do you want? " % singular))
     return choice
 
 def retry(prompt, callback, max_retry=-1, fmt="short", catches=(Exception,)):
     attempts  = 0
     while (max_retry < 0) or (attempts <= max_retry):
-        user_input = input(prompt)
+        user_input = eval(input(prompt))
         try:
             return callback(user_input)
         except catches:
@@ -142,7 +142,7 @@ def get_name():
     '''
     Get an email address from STDIN.
     '''
-    name = input('Your identity name, in email form: ')
+    name = eval(input('Your identity name, in email form: '))
     if not EMAIL_REGEX.match(name):
         raise ValueError('Not a valid email address-style name.')
     return name
@@ -160,19 +160,19 @@ def get_location():
     return [ltype, laddr, lcall]
 
 def get_addr():
-    ip = input('Your IP address, at which you can be contacted: ')
-    port = input('Port at which you are reachable: ')
+    ip = eval(input('Your IP address, at which you can be contacted: '))
+    port = eval(input('Port at which you are reachable: '))
     return [ip, int(port)]
 
 def get_callsign():
-    return input("Your callsign: ")
+    return eval(input("Your callsign: "))
 
 def get_encryptor():
     etype = choose(ENC_TYPES, 'type', 'types')
     def get_rotation():
-        return int(input("How much to rotate? "))
+        return int(eval(input("How much to rotate? ")))
     def get_crypto_bits():
-        return int(input("How many bits? "))
+        return int(eval(input("How many bits? ")))
     if etype == "rotate":
         amount = confirm(get_rotation)
         enc = [etype, amount]

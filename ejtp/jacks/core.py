@@ -58,10 +58,10 @@ class Jack(object):
             # Already running
             return None
         try:
-            import thread
+            import _thread
         except ImportError:
             import _thread as thread
-        self.thread = thread.start_new_thread(self.run, ())
+        self.thread = _thread.start_new_thread(self.run, ())
 
     @property
     def ifacetype(self):

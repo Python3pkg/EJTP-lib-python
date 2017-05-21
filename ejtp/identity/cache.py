@@ -89,7 +89,7 @@ class IdentityCache(object):
         return [x for x in self.all() if x.name == name]
 
     def find_by_name(self, name):
-        for ident in self.cache.values():
+        for ident in list(self.cache.values()):
             if ident.name == name:
                 return ident
         raise KeyError(name)
@@ -98,7 +98,7 @@ class IdentityCache(object):
         return self.cache[str_address(location)]
 
     def all(self):
-        return self.cache.values()
+        return list(self.cache.values())
 
     def ref(self, ident):
         if isinstance(ident, Identity):
